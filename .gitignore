@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Binary cache (downloaded chromium)
+.cloakbrowser/
+
+# Claude Code (private project context)
+CLAUDE.md
+.claude/
+
+# Distribution
+*.tar.gz
+*.whl
+AGENTS.md
+.beads
+
+# Private docs (launch posts, strategy)
+docs/
