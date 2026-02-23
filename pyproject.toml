@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
 authors = [
-    { name = "cloakbrowser" },
+    { name = "CloakHQ", email = "cloakhq@pm.me" },
 ]
 keywords = [
     "stealth",
@@ -47,10 +47,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/CloakHQ/cloakbrowser"
-Documentation = "https://github.com/CloakHQ/cloakbrowser#readme"
-Repository = "https://github.com/CloakHQ/cloakbrowser"
-Issues = "https://github.com/CloakHQ/cloakbrowser/issues"
+Homepage = "https://github.com/CloakHQ/CloakBrowser"
+Documentation = "https://github.com/CloakHQ/CloakBrowser#readme"
+Repository = "https://github.com/CloakHQ/CloakBrowser"
+Issues = "https://github.com/CloakHQ/CloakBrowser/issues"
 
 [tool.hatch.version]
 path = "cloakbrowser/_version.py"
