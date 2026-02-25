@@ -8,6 +8,7 @@
 [![npm](https://img.shields.io/npm/v/cloakbrowser)](https://www.npmjs.com/package/cloakbrowser)
 [![Python](https://img.shields.io/pypi/pyversions/cloakbrowser)](https://pypi.org/project/cloakbrowser/)
 [![License](https://img.shields.io/github/license/CloakHQ/CloakBrowser)](LICENSE)
+[![Downloads](https://img.shields.io/pepy/dt/cloakbrowser)](https://pepy.tech/project/cloakbrowser)
 [![Stars](https://img.shields.io/github/stars/CloakHQ/CloakBrowser)](https://github.com/CloakHQ/CloakBrowser)
 [![Last Commit](https://img.shields.io/github/last-commit/CloakHQ/CloakBrowser)](https://github.com/CloakHQ/CloakBrowser)
 
@@ -249,6 +250,8 @@ const page = await context.newPage();
 > **Note:** Each example above is standalone — not meant to run as one block.
 
 ### Puppeteer
+
+> **Note:** The Playwright wrapper is recommended for sites with reCAPTCHA Enterprise. Puppeteer's CDP protocol leaks automation signals that reCAPTCHA Enterprise can detect, causing intermittent 403 errors. This is a known Puppeteer limitation, not specific to CloakBrowser. Use Playwright for best results.
 
 ```javascript
 import { launch } from 'cloakbrowser/puppeteer';
