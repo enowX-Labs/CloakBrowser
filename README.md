@@ -286,6 +286,75 @@ clearCache();
 | `CLOAKBROWSER_DOWNLOAD_URL` | GitHub Releases | Custom download URL for binary |
 | `CLOAKBROWSER_AUTO_UPDATE` | `true` | Set to `false` to disable background update checks |
 
+## Fingerprint Management
+
+Every launch automatically generates a **unique fingerprint**. A random seed (10000–99999) drives all seed-based patches — canvas, WebGL, audio, fonts, and client rects all produce consistent, correlated values derived from that single seed.
+
+### Default Fingerprint
+
+Every `launch()` call sets these automatically:
+
+| Flag | Default | Controls |
+|------|---------|----------|
+| `--fingerprint` | Random (10000–99999) | Master seed for canvas, WebGL, audio, fonts, client rects |
+| `--fingerprint-platform` | `windows` | `navigator.platform`, User-Agent OS |
+| `--fingerprint-hardware-concurrency` | `8` | `navigator.hardwareConcurrency` |
+| `--fingerprint-gpu-vendor` | `NVIDIA Corporation` | WebGL `UNMASKED_VENDOR_WEBGL` |
+| `--fingerprint-gpu-renderer` | `NVIDIA GeForce RTX 3070` | WebGL `UNMASKED_RENDERER_WEBGL` |
+
+### Additional Flags
+
+Supported by the binary but **not set by default** — pass via `args` to customize:
+
+| Flag | Controls |
+|------|----------|
+| `--fingerprint-brand` | Browser brand: `Chrome`, `Edge`, `Opera`, `Vivaldi` |
+| `--fingerprint-brand-version` | Brand version (UA + Client Hints) |
+| `--fingerprint-platform-version` | Client Hints platform version |
+| `--fingerprint-location` | Geolocation coordinates |
+| `--timezone` | Timezone (e.g. `America/New_York`) |
+
+> **Note:** All stealth tests were verified with the default fingerprint config above. Changing these flags may affect detection results — test your configuration before using in production.
+
+### Examples
+
+```python
+# Default — unique fingerprint every launch
+browser = launch()
+
+# Pin a seed for a persistent identity
+browser = launch(args=["--fingerprint=42069"])
+
+# Full control — disable defaults, set everything yourself
+browser = launch(stealth_args=False, args=[
+    "--fingerprint=42069",
+    "--fingerprint-platform=windows",
+    "--fingerprint-hardware-concurrency=8",
+    "--fingerprint-gpu-vendor=NVIDIA Corporation",
+    "--fingerprint-gpu-renderer=NVIDIA GeForce RTX 3070",
+])
+
+# Add timezone and location on top of defaults
+browser = launch(args=[
+    "--timezone=America/New_York",
+    "--fingerprint-location=40.7128,-74.0060",
+])
+
+# Override GPU to look like a different machine
+browser = launch(args=[
+    "--fingerprint-gpu-vendor=Intel Inc.",
+    "--fingerprint-gpu-renderer=Intel Iris OpenGL Engine",
+])
+```
+
+```javascript
+// JavaScript — same flags
+const browser = await launch({
+  args: ['--fingerprint=42069', '--timezone=Europe/London'],
+});
+```
+
+
 ## Use With Existing Playwright Code
 
 If you have existing Playwright scripts, migration is one line:
@@ -347,7 +416,7 @@ page.goto("https://example.com")
 | macOS arm64 (Apple Silicon) | 🔜 In progress |
 | Chromium 145 build | 🔜 In progress |
 | JavaScript/Puppeteer + Playwright support | ✅ Released |
-| Fingerprint rotation per session | 📋 Planned |
+| Fingerprint rotation per session | ✅ Released |
 | Built-in proxy rotation | 📋 Planned |
 | Windows support | 📋 Planned |
 
