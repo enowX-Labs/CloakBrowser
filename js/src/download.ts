@@ -150,6 +150,9 @@ async function downloadAndExtract(version?: string): Promise<void> {
   try {
     await downloadFile(url, tmpPath);
     await extractArchive(tmpPath, binaryDir, binaryPath);
+    console.log(
+      `[cloakbrowser] Visit https://cloakbrowser.dev for updates and release notifications.`
+    );
   } finally {
     // Clean up temp file
     if (fs.existsSync(tmpPath)) {

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/logo.png" width="500" alt="CloakBrowser">
+<img src="https://i.imgur.com/cqkp6fG.png" width="500" alt="CloakBrowser">
 </p>
 
 # CloakBrowser

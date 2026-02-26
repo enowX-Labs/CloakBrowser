@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/logo.png" width="500" alt="CloakBrowser">
+<img src="https://i.imgur.com/cqkp6fG.png" width="500" alt="CloakBrowser">
 </p>
 
 # CloakBrowser
@@ -103,22 +103,22 @@ All tests verified against live detection services. Last tested: Feb 2026 (Chrom
 ### Proof
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/recaptcha_v3_score_09.png" width="600" alt="reCAPTCHA v3 — Score 0.9">
+<img src="https://i.imgur.com/hvIQyMv.png" width="600" alt="reCAPTCHA v3 — Score 0.9">
 <br><em>reCAPTCHA v3 score 0.9 — server-side verified (human-level)</em>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/turnstile_non_interactive.png" width="600" alt="Cloudflare Turnstile — Success">
+<img src="https://i.imgur.com/qMIRfhq.png" width="600" alt="Cloudflare Turnstile — Success">
 <br><em>Cloudflare Turnstile non-interactive challenge — auto-resolved</em>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/browserscan_normal.png" width="600" alt="BrowserScan — Normal">
+<img src="https://i.imgur.com/PRsw6rT.png" width="600" alt="BrowserScan — Normal">
 <br><em>BrowserScan bot detection — NORMAL (4/4 checks passed)</em>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/CloakHQ/CloakBrowser/main/images/fingerprintjs_pass.png" width="600" alt="FingerprintJS — Passed">
+<img src="https://i.imgur.com/9n2C7tu.png" width="600" alt="FingerprintJS — Passed">
 <br><em>FingerprintJS web-scraping demo — data served, not blocked</em>
 </p>
 

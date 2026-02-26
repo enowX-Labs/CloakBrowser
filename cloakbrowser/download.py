@@ -115,6 +115,7 @@ def _download_and_extract(version: str | None = None) -> None:
     try:
         _download_file(url, tmp_path)
         _extract_archive(tmp_path, binary_dir, binary_path)
+        logger.info("Visit https://cloakbrowser.dev for updates and release notifications.")
     finally:
         # Clean up temp file
         tmp_path.unlink(missing_ok=True)

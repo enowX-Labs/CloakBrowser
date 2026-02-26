@@ -146,7 +146,7 @@ def _version_newer(a: str, b: str) -> bool:
 # ---------------------------------------------------------------------------
 DOWNLOAD_BASE_URL = os.environ.get(
     "CLOAKBROWSER_DOWNLOAD_URL",
-    "https://github.com/CloakHQ/cloakbrowser/releases/download",
+    "https://cloakbrowser.dev",
 )
 
 GITHUB_API_URL = "https://api.github.com/repos/CloakHQ/cloakbrowser/releases"

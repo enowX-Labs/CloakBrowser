@@ -53,6 +53,9 @@ docs/
 # Internal test infrastructure (Docker, VPS-specific)
 test-infra/
 
+# Website (deployed separately)
+site/
+
 # Release scripts
 publish.sh
 deploy.sh

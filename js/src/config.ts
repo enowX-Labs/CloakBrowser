@@ -87,7 +87,7 @@ export function checkPlatformAvailable(): void {
 // ---------------------------------------------------------------------------
 export const DOWNLOAD_BASE_URL =
   process.env.CLOAKBROWSER_DOWNLOAD_URL ||
-  "https://github.com/CloakHQ/cloakbrowser/releases/download";
+  "https://cloakbrowser.dev";
 
 export const GITHUB_API_URL =
   "https://api.github.com/repos/CloakHQ/cloakbrowser/releases";
