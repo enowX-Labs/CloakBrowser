@@ -4,21 +4,25 @@
 
 # CloakBrowser
 
-[![PyPI](https://img.shields.io/pypi/v/cloakbrowser)](https://pypi.org/project/cloakbrowser/)
-[![npm](https://img.shields.io/npm/v/cloakbrowser)](https://www.npmjs.com/package/cloakbrowser)
-[![Python](https://img.shields.io/pypi/pyversions/cloakbrowser)](https://pypi.org/project/cloakbrowser/)
-[![License](https://img.shields.io/github/license/CloakHQ/CloakBrowser)](LICENSE)
-[![Downloads](https://img.shields.io/pepy/dt/cloakbrowser)](https://pepy.tech/project/cloakbrowser)
-[![Stars](https://img.shields.io/github/stars/CloakHQ/CloakBrowser)](https://github.com/CloakHQ/CloakBrowser)
-[![Last Commit](https://img.shields.io/github/last-commit/CloakHQ/CloakBrowser)](https://github.com/CloakHQ/CloakBrowser)
+<p align="center">
+<a href="https://pypi.org/project/cloakbrowser/"><img src="https://img.shields.io/pypi/v/cloakbrowser" alt="PyPI"></a>
+<a href="https://www.npmjs.com/package/cloakbrowser"><img src="https://img.shields.io/npm/v/cloakbrowser" alt="npm"></a>
+<a href="https://pypi.org/project/cloakbrowser/"><img src="https://img.shields.io/pypi/pyversions/cloakbrowser" alt="Python"></a>
+<a href="LICENSE"><img src="https://img.shields.io/github/license/CloakHQ/CloakBrowser" alt="License"></a>
+<br>
+<a href="https://github.com/CloakHQ/CloakBrowser"><img src="https://img.shields.io/github/stars/CloakHQ/CloakBrowser" alt="Stars"></a>
+<a href="https://pypi.org/project/cloakbrowser/"><img src="https://img.shields.io/pypi/dm/cloakbrowser" alt="PyPI Downloads"></a>
+<a href="https://www.npmjs.com/package/cloakbrowser"><img src="https://img.shields.io/npm/dm/cloakbrowser" alt="npm Downloads"></a>
+<a href="https://github.com/CloakHQ/CloakBrowser"><img src="https://img.shields.io/github/last-commit/CloakHQ/CloakBrowser" alt="Last Commit"></a>
+</p>
 
 **Stealth Chromium that passes every bot detection test.**
 
-Drop-in Playwright/Puppeteer replacement for Python and JavaScript. Same API, same code — just swap the import. Your browser now scores **0.9 on reCAPTCHA v3**, passes **Cloudflare Turnstile**, and clears **14 out of 14** stealth detection tests.
+Drop-in Playwright/Puppeteer replacement for Python and JavaScript. Same API, same code — just swap the import. Your browser now scores **0.9 on reCAPTCHA v3**, passes **Cloudflare Turnstile**, and clears **30 out of 30** stealth detection tests.
 
 - 🔒 **16 source-level C++ patches** — not JS injection, not config flags
 - 🎯 **0.9 reCAPTCHA v3 score** — human-level, server-verified
-- ☁️ **Passes Cloudflare Turnstile**, FingerprintJS, BrowserScan — 14/14 tests
+- ☁️ **Passes Cloudflare Turnstile**, FingerprintJS, BrowserScan — 30/30 tests
 - 🔄 **Drop-in replacement** — works with Playwright (Python & JS) and Puppeteer (JS)
 - 📦 **`pip install cloakbrowser`** or **`npm install cloakbrowser`** — binary auto-downloads, zero config
 - 🦊 **Fills the Camoufox vacuum** — Chromium-based, actively maintained
@@ -98,7 +102,7 @@ All tests verified against live detection services. Last tested: Feb 2026 (Chrom
 | CDP detection | Detected | **Not detected** | `isAutomatedWithCDP: false` |
 | TLS fingerprint | Mismatch | **Identical to Chrome** | ja3n/ja4/akamai match |
 
-**14/14 tests passed.**
+**30/30 tests passed.**
 
 ### Proof
 
@@ -127,7 +131,7 @@ All tests verified against live detection services. Last tested: Feb 2026 (Chrom
 CloakBrowser is a thin wrapper (Python + JavaScript) around a custom-built Chromium binary:
 
 1. **You install** → `pip install cloakbrowser` or `npm install cloakbrowser`
-2. **First launch** → binary auto-downloads for your platform (Linux x64 / macOS arm64)
+2. **First launch** → binary auto-downloads for your platform (Linux x64, macOS arm64/x64)
 3. **Every launch** → Playwright or Puppeteer starts with our binary + stealth args
 4. **You write code** → standard Playwright/Puppeteer API, nothing new to learn
 
@@ -283,7 +287,7 @@ clearCache();
 |---|---|---|
 | `CLOAKBROWSER_BINARY_PATH` | — | Skip download, use a local Chromium binary |
 | `CLOAKBROWSER_CACHE_DIR` | `~/.cloakbrowser` | Binary cache directory |
-| `CLOAKBROWSER_DOWNLOAD_URL` | GitHub Releases | Custom download URL for binary |
+| `CLOAKBROWSER_DOWNLOAD_URL` | `cloakbrowser.dev` | Custom download URL for binary |
 | `CLOAKBROWSER_AUTO_UPDATE` | `true` | Set to `false` to disable background update checks |
 
 ## Fingerprint Management
@@ -394,8 +398,9 @@ page.goto("https://example.com")
 | macOS x86_64 (Intel) | ✅ Available |
 | Windows | Planned |
 
-**On Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
+**macOS first launch:** The binary is ad-hoc signed. On first run, macOS Gatekeeper will block it. Right-click the app → **Open** → click **Open** in the dialog. This is only needed once.
 
+**On Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
 ## Examples
 
 **Python** — see [`examples/`](examples/):
@@ -505,10 +510,18 @@ A: Yes. Pass `proxy="http://user:pass@host:port"` to `launch()`.
 **Q: Can I use this with Docker?**
 A: Yes. A ready-to-use Dockerfile is included — see the [Docker](#docker) section above.
 
+## Links
+
+- 🌐 **Website** — [cloakbrowser.dev](https://cloakbrowser.dev)
+- 🐛 **Bug reports & feature requests** — [GitHub Issues](https://github.com/CloakHQ/CloakBrowser/issues)
+- 📦 **PyPI** — [pypi.org/project/cloakbrowser](https://pypi.org/project/cloakbrowser/)
+- 📦 **npm** — [npmjs.com/package/cloakbrowser](https://www.npmjs.com/package/cloakbrowser)
+- 📧 **Contact** — cloakhq@pm.me
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
 
 ## Contributing
 
-Issues and PRs welcome. Contact: cloakhq@pm.me
+Issues and PRs welcome. If something isn't working, [open an issue](https://github.com/CloakHQ/CloakBrowser/issues) — we respond fast.

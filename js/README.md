@@ -9,11 +9,11 @@
 
 **Stealth Chromium that passes every bot detection test.**
 
-Drop-in Playwright/Puppeteer replacement. Same API — just swap the import. Scores **0.9 on reCAPTCHA v3**, passes **Cloudflare Turnstile**, and clears **14/14** stealth detection tests.
+Drop-in Playwright/Puppeteer replacement. Same API — just swap the import. Scores **0.9 on reCAPTCHA v3**, passes **Cloudflare Turnstile**, and clears **30/30** stealth detection tests.
 
 - 🔒 **16 source-level C++ patches** — not JS injection, not config flags
 - 🎯 **0.9 reCAPTCHA v3 score** — human-level, server-verified
-- ☁️ **Passes Cloudflare Turnstile**, FingerprintJS, BrowserScan — 14/14 tests
+- ☁️ **Passes Cloudflare Turnstile**, FingerprintJS, BrowserScan — 30/30 tests
 - 🔄 **Drop-in replacement** — works with both Playwright and Puppeteer
 - 📦 **`npm install cloakbrowser`** — binary auto-downloads, zero config
 
@@ -120,7 +120,7 @@ if (newVersion) console.log(`Updated to ${newVersion}`);
 |---|---|---|
 | `CLOAKBROWSER_BINARY_PATH` | — | Skip download, use a local Chromium binary |
 | `CLOAKBROWSER_CACHE_DIR` | `~/.cloakbrowser` | Binary cache directory |
-| `CLOAKBROWSER_DOWNLOAD_URL` | GitHub Releases | Custom download URL |
+| `CLOAKBROWSER_DOWNLOAD_URL` | `cloakbrowser.dev` | Custom download URL |
 | `CLOAKBROWSER_AUTO_UPDATE` | `true` | Set to `false` to disable background update checks |
 
 ## Migrate From Playwright
@@ -151,12 +151,14 @@ const page = await browser.newPage();
 - Node.js >= 18
 - One of: `playwright-core` >= 1.40 or `puppeteer-core` >= 21
 
+## Links
+
+- 🌐 [Website](https://cloakbrowser.dev)
+- 🐛 [Bug reports & feature requests](https://github.com/CloakHQ/CloakBrowser/issues)
+- 📦 [PyPI (Python package)](https://pypi.org/project/cloakbrowser/)
+- 📖 [Full documentation](https://github.com/CloakHQ/CloakBrowser#readme)
+- 📧 Contact: cloakhq@pm.me
+
 ## License
 
 MIT — see [LICENSE](https://github.com/CloakHQ/CloakBrowser/blob/main/LICENSE).
-
-## Links
-
-- [GitHub](https://github.com/CloakHQ/CloakBrowser)
-- [PyPI (Python package)](https://pypi.org/project/cloakbrowser/)
-- [Full documentation](https://github.com/CloakHQ/CloakBrowser#readme)

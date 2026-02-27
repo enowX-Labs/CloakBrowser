@@ -14,11 +14,19 @@ describe("config", () => {
 
   it("getDefaultStealthArgs returns expected flags", () => {
     const args = getDefaultStealthArgs();
+    const isMac = process.platform === "darwin";
 
     expect(args).toContain("--no-sandbox");
     expect(args).toContain("--disable-blink-features=AutomationControlled");
-    expect(args).toContain("--fingerprint-platform=windows");
-    expect(args).toContain("--fingerprint-hardware-concurrency=8");
+
+    if (isMac) {
+      expect(args).toContain("--fingerprint-platform=macos");
+      // macOS: no hardware-concurrency or GPU spoofing (uses native values)
+      expect(args.some((a) => a.includes("hardware-concurrency"))).toBe(false);
+    } else {
+      expect(args).toContain("--fingerprint-platform=windows");
+      expect(args).toContain("--fingerprint-hardware-concurrency=8");
+    }
 
     // Should have a random fingerprint seed
     const fingerprintArg = args.find((a) => a.startsWith("--fingerprint="));
@@ -54,6 +62,6 @@ describe("config", () => {
     expect(url).toContain(CHROMIUM_VERSION);
     expect(url).toContain("cloakbrowser-");
     expect(url).toContain(".tar.gz");
-    expect(url).toContain("github.com/CloakHQ/");
+    expect(url).toContain("cloakbrowser.dev");
   });
 });

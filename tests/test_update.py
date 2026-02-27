@@ -45,7 +45,7 @@ class TestVersionComparison:
 class TestDownloadUrl:
     def test_default_url_format(self):
         url = get_download_url()
-        assert "github.com/CloakHQ/cloakbrowser/releases/download" in url
+        assert "cloakbrowser.dev" in url
         assert f"chromium-v{CHROMIUM_VERSION}" in url
         assert url.endswith(".tar.gz")
 

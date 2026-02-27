@@ -151,7 +151,13 @@ async function downloadAndExtract(version?: string): Promise<void> {
     await downloadFile(url, tmpPath);
     await extractArchive(tmpPath, binaryDir, binaryPath);
     console.log(
-      `[cloakbrowser] Visit https://cloakbrowser.dev for updates and release notifications.`
+      `[cloakbrowser] Visit https://cloakbrowser.dev for docs and release notifications.`
+    );
+    console.log(
+      `[cloakbrowser] Issues? https://github.com/CloakHQ/CloakBrowser/issues`
+    );
+    console.log(
+      `[cloakbrowser] Star us if CloakBrowser helps: https://github.com/CloakHQ/CloakBrowser`
     );
   } finally {
     // Clean up temp file

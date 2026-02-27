@@ -37,7 +37,7 @@ describe("version comparison", () => {
 describe("download URL", () => {
   it("uses chromium-v prefix and cloakbrowser repo", () => {
     const url = getDownloadUrl();
-    expect(url).toContain("github.com/CloakHQ/cloakbrowser/releases/download");
+    expect(url).toContain("cloakbrowser.dev");
     expect(url).toContain(`chromium-v${CHROMIUM_VERSION}`);
     expect(url.endsWith(".tar.gz")).toBe(true);
   });
