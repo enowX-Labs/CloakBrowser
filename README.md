@@ -292,15 +292,17 @@ Every launch automatically generates a **unique fingerprint**. A random seed (10
 
 ### Default Fingerprint
 
-Every `launch()` call sets these automatically:
+Every `launch()` call sets these automatically. Defaults are **platform-aware** — macOS runs as a native Mac browser, Linux spoofs Windows:
 
-| Flag | Default | Controls |
-|------|---------|----------|
-| `--fingerprint` | Random (10000–99999) | Master seed for canvas, WebGL, audio, fonts, client rects |
-| `--fingerprint-platform` | `windows` | `navigator.platform`, User-Agent OS |
-| `--fingerprint-hardware-concurrency` | `8` | `navigator.hardwareConcurrency` |
-| `--fingerprint-gpu-vendor` | `NVIDIA Corporation` | WebGL `UNMASKED_VENDOR_WEBGL` |
-| `--fingerprint-gpu-renderer` | `NVIDIA GeForce RTX 3070` | WebGL `UNMASKED_RENDERER_WEBGL` |
+| Flag | Linux Default | macOS Default | Controls |
+|------|--------------|---------------|----------|
+| `--fingerprint` | Random (10000–99999) | Random (10000–99999) | Master seed for canvas, WebGL, audio, fonts, client rects |
+| `--fingerprint-platform` | `windows` | `macos` | `navigator.platform`, User-Agent OS, GPU pool selection |
+| `--fingerprint-hardware-concurrency` | `8` | *(not set — uses real value)* | `navigator.hardwareConcurrency` |
+| `--fingerprint-gpu-vendor` | `NVIDIA Corporation` | *(not set — native Apple GPU)* | WebGL `UNMASKED_VENDOR_WEBGL` |
+| `--fingerprint-gpu-renderer` | `NVIDIA GeForce RTX 3070` | *(not set — native Metal renderer)* | WebGL `UNMASKED_RENDERER_WEBGL` |
+
+> **Important:** `--fingerprint-platform` must always be set. The binary defaults to `windows` internally when this flag is missing, which causes GPU/UA mismatches on non-Windows systems. The wrapper handles this automatically.
 
 ### Additional Flags
 
@@ -385,16 +387,14 @@ page.goto("https://example.com")
 
 ## Platforms
 
-> **CloakBrowser is in active development.** Pre-built binaries are currently Linux-only. macOS and Windows builds are coming soon.
-
 | Platform | Status |
 |---|---|
 | Linux x86_64 | ✅ Available |
-| macOS arm64 (Apple Silicon) | Coming soon |
-| macOS x86_64 (Intel) | Coming soon |
+| macOS arm64 (Apple Silicon) | ✅ Available |
+| macOS x86_64 (Intel) | ✅ Available |
 | Windows | Planned |
 
-**On macOS/Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
+**On Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
 
 ## Examples
 
@@ -413,14 +413,15 @@ page.goto("https://example.com")
 | Feature | Status |
 |---------|--------|
 | Linux x64 binary | ✅ Released |
-| macOS arm64 (Apple Silicon) | 🔜 In progress |
+| macOS arm64 (Apple Silicon) | ✅ Released |
+| macOS x64 (Intel) | ✅ Released |
 | Chromium 145 build | 🔜 In progress |
 | JavaScript/Puppeteer + Playwright support | ✅ Released |
 | Fingerprint rotation per session | ✅ Released |
 | Built-in proxy rotation | 📋 Planned |
 | Windows support | 📋 Planned |
 
-> ⭐ **Star this repo** to get notified when Chromium 145 and macOS builds drop.
+> ⭐ **Star this repo** to get notified when Chromium 145 and Windows builds drop.
 
 ## Docker
 

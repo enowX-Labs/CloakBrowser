@@ -24,7 +24,7 @@ const SUPPORTED_PLATFORMS: Record<string, string> = {
 
 // Platforms with pre-built binaries available for download.
 // Update this set as new platform builds are released.
-const AVAILABLE_PLATFORMS = new Set(["linux-x64"]);
+const AVAILABLE_PLATFORMS = new Set(["linux-x64", "darwin-arm64", "darwin-x64"]);
 
 export function getPlatformTag(): string {
   const platform = process.platform;
@@ -74,10 +74,9 @@ export function checkPlatformAvailable(): void {
   if (!AVAILABLE_PLATFORMS.has(tag)) {
     const available = [...AVAILABLE_PLATFORMS].sort().join(", ");
     throw new Error(
-      `CloakBrowser is in active development. ` +
-        `Pre-built binaries are currently only available for: ${available}.\n` +
-        `macOS and Windows builds are coming soon.\n\n` +
-        `To use CloakBrowser now, run in Docker (see README).`
+      `CloakBrowser — Pre-built binaries are currently only available for: ${available}.\n` +
+        `Windows builds are coming soon.\n\n` +
+        `To use CloakBrowser now, run in Docker (see README) or set CLOAKBROWSER_BINARY_PATH.`
     );
   }
 }
@@ -142,10 +141,22 @@ export function getLocalBinaryOverride(): string | undefined {
 // ---------------------------------------------------------------------------
 export function getDefaultStealthArgs(): string[] {
   const seed = Math.floor(Math.random() * 90000) + 10000; // 10000-99999
-  return [
+  const isMac = process.platform === "darwin";
+
+  const base = [
     "--no-sandbox",
     "--disable-blink-features=AutomationControlled",
     `--fingerprint=${seed}`,
+  ];
+
+  if (isMac) {
+    // macOS: run as native Mac browser — GPU/UA match natively
+    return [...base, "--fingerprint-platform=macos"];
+  }
+
+  // Linux: spoof as Windows
+  return [
+    ...base,
     "--fingerprint-platform=windows",
     "--fingerprint-hardware-concurrency=8",
     "--fingerprint-gpu-vendor=NVIDIA Corporation",

@@ -19,12 +19,28 @@ CHROMIUM_VERSION = "142.0.7444.175"
 # These activate source-level fingerprint patches compiled into the binary.
 # ---------------------------------------------------------------------------
 def get_default_stealth_args() -> list[str]:
-    """Build stealth args with a random fingerprint seed per launch."""
+    """Build stealth args with a random fingerprint seed per launch.
+
+    On macOS, skips platform/GPU spoofing — runs as a native Mac browser.
+    Spoofing Windows on Mac creates detectable mismatches (fonts, GPU, etc.).
+    """
     seed = random.randint(10000, 99999)
-    return [
+    system = platform.system()
+
+    base = [
         "--no-sandbox",
         "--disable-blink-features=AutomationControlled",
         f"--fingerprint={seed}",
+    ]
+
+    if system == "Darwin":
+        # Tell the fingerprint patches we're on macOS so GPU/UA match natively
+        return base + [
+            "--fingerprint-platform=macos",
+        ]
+
+    # Linux: spoof as Windows
+    return base + [
         "--fingerprint-platform=windows",
         "--fingerprint-hardware-concurrency=8",
         "--fingerprint-gpu-vendor=NVIDIA Corporation",
@@ -43,7 +59,7 @@ SUPPORTED_PLATFORMS: dict[tuple[str, str], str] = {
 
 # Platforms with pre-built binaries available for download.
 # Update this set as new platform builds are released.
-AVAILABLE_PLATFORMS: set[str] = {"linux-x64"}
+AVAILABLE_PLATFORMS: set[str] = {"linux-x64", "darwin-arm64", "darwin-x64"}
 
 
 def get_platform_tag() -> str:
@@ -106,8 +122,8 @@ def check_platform_available() -> None:
         import sys
         sys.exit(
             f"\n\033[1mCloakBrowser\033[0m — Pre-built binaries are currently only available for: {available}.\n"
-            f"macOS and Windows builds are coming soon.\n\n"
-            f"To use CloakBrowser now, run in Docker (see README)."
+            f"Windows builds are coming soon.\n\n"
+            f"To use CloakBrowser now, run in Docker (see README) or set CLOAKBROWSER_BINARY_PATH."
         )
 
 

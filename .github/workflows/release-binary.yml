@@ -6,10 +6,14 @@ on:
       tag:
         description: 'Release tag (e.g. chromium-v145.0.7718.0)'
         required: true
-      platform:
-        description: 'Platform label (e.g. Linux x64)'
+      title:
+        description: 'Release title (e.g. Chromium v145 — Stealth Build)'
         required: true
-        default: 'Linux x64'
+        default: 'Stealth Chromium Build'
+      patch_count:
+        description: 'Number of fingerprint patches'
+        required: true
+        default: '16'
 
 jobs:
   release:
@@ -23,11 +27,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag }}
-          name: "${{ github.event.inputs.platform }} — ${{ github.event.inputs.tag }}"
+          name: "${{ github.event.inputs.title }}"
           body: |
             ## Stealth Chromium Build
 
-            Pre-built Chromium with 16 source-level fingerprint patches.
+            Pre-built Chromium with ${{ github.event.inputs.patch_count }} source-level fingerprint patches.
 
             ### Install
             ```bash
@@ -36,5 +40,6 @@ jobs:
             # Binary auto-downloads on first launch
             ```
 
-            ### Platforms
-            - ${{ github.event.inputs.platform }}
+            > Checksums and platform list will be added after binary uploads.
+            >
+            > Release signed with CloakHQ GPG key: `C60C0DDC9D0DE2DD`

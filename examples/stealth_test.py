@@ -119,8 +119,8 @@ def test_deviceandbrowserinfo(page):
 
 def test_fingerprintjs(page):
     """demo.fingerprint.com/web-scraping — industry-standard bot detection."""
-    page.goto("https://demo.fingerprint.com/web-scraping", wait_until="networkidle", timeout=30000)
-    page.wait_for_timeout(5000)
+    page.goto("https://demo.fingerprint.com/web-scraping", wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(8000)
 
     # Click search to trigger bot detection — bots get blocked, humans see flights
     try:

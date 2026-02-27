@@ -137,16 +137,14 @@ const page = await browser.newPage();
 
 ## Platforms
 
-> **CloakBrowser is in active development.** Pre-built binaries are currently Linux-only. macOS and Windows builds are coming soon.
-
 | Platform | Status |
 |---|---|
 | Linux x86_64 | ✅ Available |
-| macOS arm64 (Apple Silicon) | Coming soon |
-| macOS x86_64 (Intel) | Coming soon |
+| macOS arm64 (Apple Silicon) | ✅ Available |
+| macOS x86_64 (Intel) | ✅ Available |
 | Windows | Planned |
 
-**On macOS/Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
+**On Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
 
 ## Requirements
 
