@@ -81,6 +81,10 @@ app = FastAPI(
     description=(
         "Remote stealth browser control API. "
         "Launch anti-detect Chromium sessions and automate them via HTTP.\n\n"
+        "## Authentication\n"
+        "If `API_KEY` is set on the server, all requests must include the key "
+        "via the `X-API-Key` header or `Authorization: Bearer <key>` header.\n"
+        "Click the **Authorize** button (🔒) above to enter your API key.\n\n"
         "## Quick Start\n"
         "1. `POST /sessions` — create a browser session\n"
         "2. `POST /sessions/{id}/pages` — open a new tab\n"
@@ -93,6 +97,52 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+
+# ---------------------------------------------------------------------------
+# Custom OpenAPI schema — inject security schemes so Swagger UI shows
+# the "Authorize" button with X-API-Key and Bearer token fields
+# ---------------------------------------------------------------------------
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    from fastapi.openapi.utils import get_openapi
+
+    schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+
+    # Add security scheme definitions
+    schema.setdefault("components", {})
+    schema["components"].setdefault("securitySchemes", {})
+    schema["components"]["securitySchemes"]["ApiKeyHeader"] = {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API key passed via X-API-Key header",
+    }
+    schema["components"]["securitySchemes"]["BearerAuth"] = {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "API key passed as Bearer token in Authorization header",
+    }
+
+    # Apply security globally to all operations
+    schema["security"] = [
+        {"ApiKeyHeader": []},
+        {"BearerAuth": []},
+    ]
+
+    app.openapi_schema = schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi  # type: ignore[method-assign]
 
 # ---------------------------------------------------------------------------
 # CORS
