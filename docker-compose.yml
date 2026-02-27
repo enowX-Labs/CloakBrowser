@@ -19,7 +19,7 @@ services:
     container_name: cloakbrowser-api
 
     ports:
-      - "${PORT:-8000}:8000"
+      - "${PORT:-7317}:7317"
 
     environment:
       # Security
@@ -34,7 +34,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
       # Port
-      PORT: ${PORT:-8000}
+      PORT: ${PORT:-7317}
 
     # Shared memory for Chromium (prevents crashes in Docker)
     shm_size: "2gb"
@@ -53,7 +53,7 @@ services:
 
     # Health check
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7317/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
