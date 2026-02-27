@@ -403,6 +403,8 @@ page.goto("https://example.com")
 | macOS x86_64 (Intel) | ✅ Available |
 | Windows | Planned |
 
+**macOS (early access):** macOS builds are new — tested but not yet battle-tested at scale like Linux. If you hit any issues, [please open a GitHub issue](https://github.com/CloakHQ/CloakBrowser/issues).
+
 **macOS first launch:** The binary is ad-hoc signed. On first run, macOS Gatekeeper will block it. Right-click the app → **Open** → click **Open** in the dialog. This is only needed once.
 
 **On Windows?** You can still use CloakBrowser via Docker or with your own Chromium binary by setting `CLOAKBROWSER_BINARY_PATH=/path/to/chrome`.
