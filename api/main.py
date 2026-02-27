@@ -14,9 +14,10 @@ import os
 import time
 from contextlib import asynccontextmanager
 
+import yaml
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from api.session_manager import manager
 from api.routers import sessions as sessions_router
@@ -114,7 +115,7 @@ app.add_middleware(
 async def api_key_middleware(request: Request, call_next):
     """Validate API key if API_KEY env var is set."""
     # Skip auth for health check and docs
-    if request.url.path in ("/health", "/docs", "/redoc", "/openapi.json"):
+    if request.url.path in ("/health", "/docs", "/redoc", "/openapi.json", "/swagger.yaml"):
         return await call_next(request)
 
     if API_KEY:
@@ -175,5 +176,29 @@ async def root():
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/health",
+        "swagger_yaml": "/swagger.yaml",
         "active_sessions": len(manager._sessions),
     }
+
+
+@app.get(
+    "/swagger.yaml",
+    tags=["System"],
+    response_class=Response,
+    summary="Download OpenAPI spec as YAML",
+    description="Returns the full OpenAPI 3.x specification in YAML format. "
+                "Download and import into Postman, Insomnia, or any OpenAPI-compatible tool.",
+)
+async def swagger_yaml():
+    """Download the OpenAPI specification as a swagger.yaml file.
+
+    The returned YAML is the same schema exposed at `/openapi.json`,
+    converted to YAML format for easy import into API clients.
+    """
+    openapi_schema = app.openapi()
+    yaml_content = yaml.dump(openapi_schema, allow_unicode=True, sort_keys=False)
+    return Response(
+        content=yaml_content,
+        media_type="application/x-yaml",
+        headers={"Content-Disposition": "attachment; filename=swagger.yaml"},
+    )

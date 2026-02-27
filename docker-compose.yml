@@ -7,14 +7,14 @@ version: "3.9"
 #
 # Coolify:
 #   - Point Coolify to this repo
-#   - Set Dockerfile path to: Dockerfile.api
+#   - Set Dockerfile path to: Dockerfile
 #   - Configure env vars in Coolify dashboard (see .env.example)
 
 services:
   cloakbrowser-api:
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: Dockerfile
     image: cloakbrowser-api:latest
     container_name: cloakbrowser-api
 
